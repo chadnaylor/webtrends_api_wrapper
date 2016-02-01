@@ -14,7 +14,7 @@ class WebtrendsAPIWrapper(object):
         pass
 
     def list_spaces(self):
-        return requests.get(self.url + "spaces/?format=json")
+        return requests.get(self.url + "spaces/?format=json", auth=(self.username, self.password))
 
     def list_profiles(self):
         pass
