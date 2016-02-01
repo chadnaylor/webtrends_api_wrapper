@@ -1,6 +1,12 @@
 import requests
 
-class WebtrendsAPIWrapper:
+class WebtrendsAPIWrapper(object):
+    url = "https://ws.webtrends.com/v3/Reporting/"
+
+    def __init__(self, username=None, password=None):
+        self.username = username
+        self.password = password
+
     def get_report_data(self):
         pass
 
@@ -8,7 +14,7 @@ class WebtrendsAPIWrapper:
         pass
 
     def list_spaces(self):
-        pass
+        return requests.get(self.url + "spaces/?format=json")
 
     def list_profiles(self):
         pass

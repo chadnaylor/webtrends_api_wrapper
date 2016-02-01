@@ -1,4 +1,6 @@
 import unittest
+from webtrends import WebtrendsAPIWrapper
+import auth
 
 class TestWebtrendsAPIWrapper(unittest.TestCase):
     def test_get_report_data(self):
@@ -8,7 +10,9 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         pass
     
     def test_list_spaces(self):
-        pass
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+        response = wrapper.list_spaces()
+        self.assertEqual(200, response.status_code)
     
     def test_list_profiles(self):
         pass
