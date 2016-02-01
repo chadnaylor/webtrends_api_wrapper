@@ -1,28 +1,28 @@
 import requests
 
-def get_report_data():
-    pass
+class WebtrendsAPIWrapper:
+    def get_report_data(self):
+        pass
 
-def get_report_meta():
-    pass
+    def get_report_meta(self):
+        pass
 
-def list_spaces():
-    pass
+    def list_spaces(self):
+        pass
 
-def list_profiles():
-    pass
+    def list_profiles(self):
+        pass
 
-def list_reports():
-    pass
+    def list_reports(self):
+        pass
 
+    ### START Methods TBD (Probably won't need these for a while)
+    def get_key_metrics_for_a_profile(self):
+        pass
 
-### START Methods TBD (Probably won't need these for a while)
-def get_key_metrics_for_a_profile():
-    pass
+    def get_key_metrics_for_all_profiles_in_a_space(self):
+        pass
 
-def get_key_metrics_for_all_profiles_in_a_space():
-    pass
-
-def get_key_metrics_for_default_profiles_of_all_spaces():
-    pass
-### END Methods TBD
+    def get_key_metrics_for_default_profiles_of_all_spaces(self):
+        pass
+    ### END Methods TBD
