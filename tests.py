@@ -13,12 +13,16 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
         response = wrapper.list_spaces()
         self.assertEqual(200, response.status_code)
-    
+
     def test_list_profiles(self):
-        pass
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+        response = wrapper.list_profiles()
+        self.assertEqual(200, response.status_code)
     
     def test_list_reports(self):
-        pass
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+        response = wrapper.list_reports()
+        self.assertEqual(200, response.status_code)
 
     ### START Methods TBD (Probably won't need these for a while)
     def test_get_key_metrics_for_a_profile(self):
