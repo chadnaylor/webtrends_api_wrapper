@@ -20,8 +20,10 @@ class WebtrendsAPIWrapper(object):
         return requests.get(_url("spaces/?format=json"), auth=(self.username, self.password))
 
     def list_profiles(self, space=None):
-
-        return requests.get(_url("profiles/?format=json"), auth=(self.username, self.password))
+        if space is not None:
+            return requests.get(_url("spaces/" + str(space) + "/profiles/?format=json"), auth=(self.username, self.password))
+        else:
+            return requests.get(_url("profiles/?format=json"), auth=(self.username, self.password))
 
     def list_reports(self):
         pass

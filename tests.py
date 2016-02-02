@@ -34,7 +34,7 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         # Verify That profiles are only in requested space
         response_profiles = json.loads(response.text)
         for profile in response_profiles:
-            self.assertEqual(space_id, profile["ID"])
+            self.assertEqual(space_id, profile["SpaceID"])
     
     def test_list_reports(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
