@@ -11,7 +11,8 @@ class WebtrendsAPIWrapper(object):
         if response_format is "json":
             self.format_string = "?format=json"
 
-    def get_report_data(self, profile, report, totals="all", start_period="current_month-1", end_period="current_month", period_type="agg"):
+    def get_report_data(self, profile, report, totals="all", start_period="current_month-1", end_period="current_month",
+                        period_type="agg"):
         """
         Get data from a report. Must supply profile and report
         :param profile:
@@ -22,8 +23,10 @@ class WebtrendsAPIWrapper(object):
         :param period_type:
         :return: response object
         """
-        filters_string = "&totals=" + totals + "&start_period=" + start_period + "&end_period=" + end_period + "&period_type=" + period_type
-        return requests.get(_url("profiles/" + profile + "/reports/" + report + "/" + self.format_string ), auth=(self.username, self.password))
+        filters_string = "&totals=" + totals + "&start_period=" + start_period + "&end_period=" + end_period + \
+                         "&period_type=" + period_type
+        return requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/" + self.format_string +
+                                 filters_string), auth=(self.username, self.password))
 
     def get_report_meta(self):
         pass
