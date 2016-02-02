@@ -38,7 +38,12 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
     
     def test_list_reports(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
-        response = wrapper.list_reports()
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        response = wrapper.list_reports(profile_id)
         self.assertEqual(200, response.status_code)
 
     ### START Methods TBD (Probably won't need these for a while)
