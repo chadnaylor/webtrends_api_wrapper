@@ -41,7 +41,7 @@ class WebtrendsAPIWrapper(object):
         :param profile_id: Int Profile ID can be obtained from the ID param of the profiles returned by list_profiles
         :return: response object
         """
-        pass
+        return requests.get(_url("profiles/" + str(profile_id) + "/reports/" + self.format_string), auth=(self.username, self.password))
 
     ### START Methods TBD (Probably won't need these for a while)
     def get_key_metrics_for_a_profile(self):
