@@ -17,19 +17,30 @@ class WebtrendsAPIWrapper(object):
     def get_report_meta(self):
         pass
 
-    # List of available spaces
     def list_spaces(self):
+        """
+        List of available spaces
+        :return: response object
+        """
         return requests.get(_url("spaces/" + self.format_string), auth=(self.username, self.password))
 
-    # List available profiles. Option to filer by space ID.
-    # (Space ID can be obtained from the ID param of any of the spaces returned by list_spaces)
     def list_profiles(self, space_id=None):
+        """
+        List available profiles. Option to filer by space ID.
+        :param space_id: Int Space ID can be obtained from the ID param of any of the spaces returned by list_spaces
+        :return: response object
+        """
         if space_id is not None:
             return requests.get(_url("spaces/" + str(space_id) + "/profiles/" + self.format_string), auth=(self.username, self.password))
         else:
             return requests.get(_url("profiles/" + self.format_string), auth=(self.username, self.password))
 
-    def list_reports(self):
+    def list_reports(self, profile_id):
+        """
+        List available reports for a given profile. Must provide profile ID.
+        :param profile_id: Int Profile ID can be obtained from the ID param of the profiles returned by list_profiles
+        :return: response object
+        """
         pass
 
     ### START Methods TBD (Probably won't need these for a while)
