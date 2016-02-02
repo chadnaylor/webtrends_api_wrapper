@@ -22,9 +22,9 @@ class WebtrendsAPIWrapper(object):
 
     # List available profiles. Option to filer by space ID.
     # (Space ID can be obtained from the ID param of any of the spaces returned by list_spaces)
-    def list_profiles(self, space=None):
-        if space is not None:
-            return requests.get(_url("spaces/" + str(space) + "/profiles/?format=json"), auth=(self.username, self.password))
+    def list_profiles(self, space_id=None):
+        if space_id is not None:
+            return requests.get(_url("spaces/" + str(space_id) + "/profiles/?format=json"), auth=(self.username, self.password))
         else:
             return requests.get(_url("profiles/?format=json"), auth=(self.username, self.password))
 
