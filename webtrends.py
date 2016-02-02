@@ -2,13 +2,14 @@ import requests
 
 def _url(path):
         return 'https://ws.webtrends.com/v3/Reporting/' + path
+
 class WebtrendsAPIWrapper(object):
 
-    def __init__(self, username=None, password=None):
+    def __init__(self, username=None, password=None, response_format="json"):
         self.username = username
         self.password = password
-
-
+        if response_format is "json":
+            self.format_string = "?format=json"
 
     def get_report_data(self):
         pass
@@ -18,15 +19,15 @@ class WebtrendsAPIWrapper(object):
 
     # List of available spaces
     def list_spaces(self):
-        return requests.get(_url("spaces/?format=json"), auth=(self.username, self.password))
+        return requests.get(_url("spaces/" + self.format_string), auth=(self.username, self.password))
 
     # List available profiles. Option to filer by space ID.
     # (Space ID can be obtained from the ID param of any of the spaces returned by list_spaces)
     def list_profiles(self, space_id=None):
         if space_id is not None:
-            return requests.get(_url("spaces/" + str(space_id) + "/profiles/?format=json"), auth=(self.username, self.password))
+            return requests.get(_url("spaces/" + str(space_id) + "/profiles/" + self.format_string), auth=(self.username, self.password))
         else:
-            return requests.get(_url("profiles/?format=json"), auth=(self.username, self.password))
+            return requests.get(_url("profiles/" + self.format_string), auth=(self.username, self.password))
 
     def list_reports(self):
         pass
