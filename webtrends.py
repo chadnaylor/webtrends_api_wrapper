@@ -16,9 +16,12 @@ class WebtrendsAPIWrapper(object):
     def get_report_meta(self):
         pass
 
+    # List of available spaces
     def list_spaces(self):
         return requests.get(_url("spaces/?format=json"), auth=(self.username, self.password))
 
+    # List available profiles. Option to filer by space ID.
+    # (Space ID can be obtained from the ID param of any of the spaces returned by list_spaces)
     def list_profiles(self, space=None):
         if space is not None:
             return requests.get(_url("spaces/" + str(space) + "/profiles/?format=json"), auth=(self.username, self.password))
