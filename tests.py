@@ -5,7 +5,18 @@ import json
 
 class TestWebtrendsAPIWrapper(unittest.TestCase):
     def test_get_report_data(self):
-        pass
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        response = wrapper.get_report_data(profile_id, report_id)
+        self.assertEqual(200, response.status_code)
     
     def test_get_report_meta(self):
         pass

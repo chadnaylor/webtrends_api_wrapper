@@ -22,7 +22,8 @@ class WebtrendsAPIWrapper(object):
         :param period_type:
         :return: response object
         """
-        pass
+        filters_string = "&totals=" + totals + "&start_period=" + start_period + "&end_period=" + end_period + "&period_type=" + period_type
+        return requests.get(_url("profiles/" + profile + "/reports/" + report + "/" + self.format_string ), auth=(self.username, self.password))
 
     def get_report_meta(self):
         pass
