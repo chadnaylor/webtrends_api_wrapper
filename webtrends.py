@@ -14,7 +14,9 @@ class WebtrendsAPIWrapper(object):
     def get_report_data(self, profile, report, totals="all", start_period="current_month-1", end_period="current_month",
                         period_type="agg"):
         """
-        Get data from a report. Must supply profile and report
+        Get data from a report. Must supply profile and report.
+
+        TODO: Add extra optional params, write docs for defaults, etc.
         :param profile:
         :param report:
         :param totals:
@@ -29,7 +31,13 @@ class WebtrendsAPIWrapper(object):
                                  filters_string), auth=(self.username, self.password))
 
     def get_report_meta(self, profile, report):
-        pass
+        """
+        Gets report metadata
+        :param profile:
+        :param report:
+        :return: response object
+        """
+        return requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/info/" + self.format_string), auth=(self.username, self.password))
 
     def list_spaces(self):
         """
