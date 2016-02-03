@@ -28,7 +28,7 @@ class WebtrendsAPIWrapper(object):
         return requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/" + self.format_string +
                                  filters_string), auth=(self.username, self.password))
 
-    def get_report_meta(self):
+    def get_report_meta(self, profile, report):
         pass
 
     def list_spaces(self):

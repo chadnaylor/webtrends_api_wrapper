@@ -19,7 +19,18 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         self.assertEqual(200, response.status_code)
     
     def test_get_report_meta(self):
-        pass
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        response = wrapper.get_report_meta(profile_id, report_id)
+        self.assertEqual(200, response.status_code)
     
     def test_list_spaces(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
