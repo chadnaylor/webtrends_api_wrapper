@@ -16,12 +16,39 @@ class WebtrendsAPIWrapper(object):
         """
         Get data from a report. Must supply profile and report.
 
+        Report time parameters:
+            Relative to current time:
+                Example: Get data for the past hour
+                    start_period="current_hour-1"
+                    end_period="current_hour"
+
+                By hour:
+                    Use current_hour
+
+                By day:
+                    Use current_day
+
+                By month:
+                    Use current_month
+
+                By year:
+                    Use current_year
+
+            By absolute times:
+                Example: get data from Jan 1, 2015 to 5:00pm Feb 2, 2016
+                    start_period: 2016m01d01h00
+                    end_period: 2016m02d02h17
+
+                Format:
+                    YYYYmMMdDDhHH
+                    Where capitalized letters are replaced with numbers representing year, month, day, hour respectively
+
         TODO: Add extra optional params, write docs for defaults, etc.
         :param profile:
         :param report:
         :param totals:
-        :param start_period:
-        :param end_period:
+        :param start_period: Time of earliest report data point
+        :param end_period: Time of most recent report data point
         :param period_type:
         :return: response object
         """
