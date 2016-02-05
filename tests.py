@@ -29,9 +29,71 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         reports = json.loads(wrapper.list_reports(profile_id).text)
         report_id = reports[0]["ID"]
 
+        # Test past day
         response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="current_day")
         self.assertEqual(200, response.status_code)
 
+        # Test past ten days
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-10", end_period="current_day")
+        self.assertEqual(200, response.status_code)
+
+    def test_get_report_data_with_current_hour(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        # Test past hour
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_hour-1", end_period="current_hour")
+        self.assertEqual(200, response.status_code)
+
+        # Test past ten hours
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_hour-10", end_period="current_hour")
+        self.assertEqual(200, response.status_code)
+
+    def test_get_report_data_with_current_month(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        # Test past month
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_month-1", end_period="current_month")
+        self.assertEqual(200, response.status_code)
+
+        # Test past ten months
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_month-10", end_period="current_month")
+        self.assertEqual(200, response.status_code)
+    
+    def test_get_report_data_with_current_year(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        # Test past year
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_year-1", end_period="current_year")
+        self.assertEqual(200, response.status_code)
+
+        # Test past ten years
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_year-10", end_period="current_year")
+        self.assertEqual(200, response.status_code)
+    
     def test_get_report_data_with_conflicting_time_params(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
 
@@ -43,8 +105,14 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         reports = json.loads(wrapper.list_reports(profile_id).text)
         report_id = reports[0]["ID"]
 
-        # Make request with different types of time params for start_period and end_period
+        # Make request with different types of relative time params for start_period and end_period
         response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="current_month")
+
+        # Should get a 400 BAD REQUEST response
+        self.assertEqual(400, response.status_code)
+
+        # Make request with relative and absolute time params for start_period and end_period
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="2016m01d01h00")
 
         # Should get a 400 BAD REQUEST response
         self.assertEqual(400, response.status_code)
