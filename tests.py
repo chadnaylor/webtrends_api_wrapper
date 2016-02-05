@@ -17,6 +17,37 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
 
         response = wrapper.get_report_data(profile_id, report_id)
         self.assertEqual(200, response.status_code)
+
+    def test_get_report_data_with_current_day(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="current_day")
+        self.assertEqual(200, response.status_code)
+
+    def test_get_report_data_with_conflicting_time_params(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        # Make request with different types of time params for start_period and end_period
+        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="current_month")
+
+        # Should get a 400 BAD REQUEST response
+        self.assertEqual(400, response.status_code)
     
     def test_get_report_meta(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
