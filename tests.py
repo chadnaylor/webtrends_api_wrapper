@@ -168,12 +168,15 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         self.assertEqual(200, response.status_code)
 
     ### START Methods TBD (Probably won't need these for a while)
+    @unittest.skip("Method TBD")
     def test_get_key_metrics_for_a_profile(self):
         pass
-    
+
+    @unittest.skip("Method TBD")
     def test_get_key_metrics_for_all_profiles_in_a_space(self):
         pass
-    
+
+    @unittest.skip("Method TBD")
     def test_get_key_metrics_for_default_profiles_of_all_spaces(self):
         pass
     ### END Methods TBD
