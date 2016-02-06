@@ -93,6 +93,21 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         # Test past ten years
         response = wrapper.get_report_data(profile_id, report_id, start_period="current_year-10", end_period="current_year")
         self.assertEqual(200, response.status_code)
+
+    def test_get_report_data_with_absolute_time(self):
+        wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
+
+        # Get the id of a profile
+        profiles = json.loads(wrapper.list_profiles().text)
+        profile_id = profiles[0]["ID"]
+
+        # Get the id of a report
+        reports = json.loads(wrapper.list_reports(profile_id).text)
+        report_id = reports[0]["ID"]
+
+        # January 2016
+        response = wrapper.get_report_data(profile_id, report_id, start_period="2016m01d01h00", end_period="2016m02d01h00")
+        self.assertEqual(200, response.status_code)
     
     def test_get_report_data_with_conflicting_time_params(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
