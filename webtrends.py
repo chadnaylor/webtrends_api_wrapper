@@ -69,14 +69,24 @@ class WebtrendsAPIWrapper(object):
         :param report:
         :return: response object
         """
-        return requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/info/" + self.format_string), auth=(self.username, self.password))
+        response = requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/info/" + self.format_string), auth=(self.username, self.password))
+
+        # Raise exception for bad responses
+        response.raise_for_status()
+
+        return response
 
     def list_spaces(self):
         """
         List of available spaces
         :return: response object
         """
-        return requests.get(_url("spaces/" + self.format_string), auth=(self.username, self.password))
+        response = requests.get(_url("spaces/" + self.format_string), auth=(self.username, self.password))
+
+        # Raise exception for bad responses
+        response.raise_for_status()
+
+        return response
 
     def list_profiles(self, space_id=None):
         """
@@ -85,9 +95,14 @@ class WebtrendsAPIWrapper(object):
         :return: response object
         """
         if space_id is not None:
-            return requests.get(_url("spaces/" + str(space_id) + "/profiles/" + self.format_string), auth=(self.username, self.password))
+            response = requests.get(_url("spaces/" + str(space_id) + "/profiles/" + self.format_string), auth=(self.username, self.password))
         else:
-            return requests.get(_url("profiles/" + self.format_string), auth=(self.username, self.password))
+            response = requests.get(_url("profiles/" + self.format_string), auth=(self.username, self.password))
+
+        # Raise exception for bad responses
+        response.raise_for_status()
+
+        return response
 
     def list_reports(self, profile_id):
         """
@@ -95,7 +110,12 @@ class WebtrendsAPIWrapper(object):
         :param profile_id: Int Profile ID can be obtained from the ID param of the profiles returned by list_profiles
         :return: response object
         """
-        return requests.get(_url("profiles/" + str(profile_id) + "/reports/" + self.format_string), auth=(self.username, self.password))
+        response = requests.get(_url("profiles/" + str(profile_id) + "/reports/" + self.format_string), auth=(self.username, self.password))
+
+        # Raise exception for bad responses
+        response.raise_for_status()
+
+        return response
 
     ### START Methods TBD (Probably won't need these for a while)
     def get_key_metrics_for_a_profile(self):
