@@ -2,8 +2,10 @@ import unittest
 from webtrends import WebtrendsAPIWrapper
 import auth
 import json
+import requests
 
 class TestWebtrendsAPIWrapper(unittest.TestCase):
+
     def test_get_report_data(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)
 
@@ -121,16 +123,8 @@ class TestWebtrendsAPIWrapper(unittest.TestCase):
         report_id = reports[0]["ID"]
 
         # Make request with different types of relative time params for start_period and end_period
-        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="current_month")
-
         # Should get a 400 BAD REQUEST response
-        self.assertEqual(400, response.status_code)
-
-        # Make request with relative and absolute time params for start_period and end_period
-        response = wrapper.get_report_data(profile_id, report_id, start_period="current_day-1", end_period="2016m01d01h00")
-
-        # Should get a 400 BAD REQUEST response
-        self.assertEqual(400, response.status_code)
+        self.assertRaises(requests.exceptions.HTTPError, wrapper.get_report_data, profile_id, report_id, start_period="current_day-1", end_period="current_month")
     
     def test_get_report_meta(self):
         wrapper = WebtrendsAPIWrapper(username=auth.username, password=auth.password)

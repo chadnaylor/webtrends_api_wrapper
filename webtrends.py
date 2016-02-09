@@ -54,8 +54,13 @@ class WebtrendsAPIWrapper(object):
         """
         filters_string = "&start_period=" + start_period + "&end_period=" + end_period + "&totals=" + totals + \
                          "&period_type=" + period_type
-        return requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/" + self.format_string +
+        response = requests.get(_url("profiles/" + str(profile) + "/reports/" + str(report) + "/" + self.format_string +
                                  filters_string), auth=(self.username, self.password))
+
+        # Raise exception for bad responses
+        response.raise_for_status()
+
+        return response
 
     def get_report_meta(self, profile, report):
         """
